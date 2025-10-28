@@ -12,6 +12,7 @@
   "license": "ISC",
   "devDependencies": {
     "@vitejs/plugin-vue": "^6.0.1",
+    "sass-embedded": "^1.93.2",
     "vite": "^7.1.12"
   },
   "dependencies": {
