@@ -3,7 +3,9 @@
     <el-card shadow="hover">
       <h3>{{ title }}</h3>
       <p>Это ваш Vue + Element Plus виджет 🎉</p>
-      <el-button type="primary" @click="onClick">Нажми меня</el-button>
+      <el-button class="button" type="primary" @click="onClick">
+        Нажми меня
+      </el-button>
     </el-card>
   </div>
 </template>
@@ -24,5 +26,9 @@ const onClick = () => alert("Виджет работает!");
   bottom: 20px;
   right: 20px;
   width: 260px;
+}
+
+.button {
+  background-color: #ccffff;
 }
 </style>

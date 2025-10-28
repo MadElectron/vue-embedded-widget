@@ -14,9 +14,17 @@ import Widget from "./Widget.vue";
   const mountPoint = document.createElement("div");
   shadow.appendChild(mountPoint);
 
-  // получаем параметры из <script data-title="...">
   const script = document.currentScript;
   const title = script?.dataset?.title || "Виджет по умолчанию";
+
+  const styleRef = script?.dataset?.css || "/style.css";
+
+  if (styleRef) {
+    const style = document.createElement("link");
+    style.rel = "stylesheet";
+    style.href = styleRef;
+    shadow.appendChild(style);
+  }
 
   const app = createApp(Widget, { title });
   app.use(ElementPlus);
