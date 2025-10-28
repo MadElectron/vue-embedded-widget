@@ -1,0 +1,21 @@
+{
+  "name": "widget",
+  "version": "1.0.0",
+  "description": "7pay embedded widget",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "build:embed": "vite build --mode embed",
+    "preview": "vite preview"
+  },
+  "author": "Denis Bondarenko",
+  "license": "ISC",
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^6.0.1",
+    "vite": "^7.1.12"
+  },
+  "dependencies": {
+    "element-plus": "^2.11.5",
+    "vue": "^3.5.22"
+  }
+}
