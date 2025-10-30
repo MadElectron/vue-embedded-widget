@@ -4,6 +4,16 @@ import "element-plus/dist/index.css";
 import Widget from "@/Widget.vue";
 import interFontBase64 from "@/assets/fonts/Inter_24pt-Regular.ttf?inline";
 import robotoFontBase64 from "@/assets/fonts/Roboto_SemiCondensed-Light.ttf?inline";
+import { createI18n } from "vue-i18n";
+import { messages, pluralRules } from "@/utils/i18n";
+
+const i18n = createI18n({
+  legacy: false,
+  locale: "ru",
+  fallbackLocale: "en",
+  messages,
+  pluralRules,
+});
 
 (async function () {
   const containerId = script?.dataset?.container;
@@ -48,6 +58,7 @@ import robotoFontBase64 from "@/assets/fonts/Roboto_SemiCondensed-Light.ttf?inli
   }
 
   const app = createApp(Widget, {});
+  app.use(i18n);
   app.use(ElementPlus);
   app.mount(mountPoint);
 })();

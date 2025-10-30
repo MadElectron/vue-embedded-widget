@@ -6,7 +6,8 @@
           <Logo />
         </span>
         <span class="top"
-          >1 625 <span class="ruble">₽</span> &times; 4 платежа</span
+          >1 625 <span class="ruble">₽</span> &times;
+          {{ t("payment", 4) }}</span
         >
         <span class="bottom">на 2, 4 или 6 месяцев</span>
         <span class="right">
@@ -22,6 +23,9 @@
 <script setup>
 import Logo from "./components/svg/Logo.vue";
 import Chevron from "./components/svg/Chevron.vue";
+import { useI18n } from "vue-i18n";
+
+const { t } = useI18n();
 
 defineProps({
   // title: { type: String, default: "Привет, мир!" },
