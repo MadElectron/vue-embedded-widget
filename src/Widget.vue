@@ -24,7 +24,7 @@ import Logo from "./components/svg/Logo.vue";
 import Chevron from "./components/svg/Chevron.vue";
 
 defineProps({
-  title: { type: String, default: "Привет, мир!" },
+  // title: { type: String, default: "Привет, мир!" },
 });
 
 const onClick = () => alert("Виджет работает!");
@@ -38,25 +38,31 @@ const onClick = () => alert("Виджет работает!");
 }
 
 .el-button {
+  justify-content: stretch;
   height: auto;
+  width: 100%;
   padding: 15px 12px;
   border-radius: 20px;
   border: none;
   background: #c8ff00;
   color: #000;
 
+  & > :deep(span) {
+    flex-grow: 1;
+  }
+
   .content {
     display: grid;
+    grid-template-columns: min-content auto min-content;
     grid-template-areas:
       "logo top right"
       "logo bottom right";
     gap: 0 8px;
+    width: 100%;
     font-family: "Inter", sans-serif !important;
-    letter-spacing: 2%;
     font-weight: 500;
     font-size: 14px;
     line-height: 17px;
-    vertical-align: middle;
     text-align: left;
 
     .logo {

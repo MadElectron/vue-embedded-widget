@@ -4,14 +4,22 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+    <style>
+      #sevenpay-widget {
+        position: relative;
+        width: 50%;
+      }
+    </style>
   </head>
   <body>
     <h1>This is a website</h1>
+    <div id="sevenpay-widget"></div>
+
     <script>
       const script = document.createElement("script");
       script.src = "./vue-widget.iife.js?v=<?= time() ?>";
-      script.setAttribute("data-title", "Hello, world");
       script.setAttribute("data-css", "./vue-widget.css");
+      script.setAttribute("data-container", "sevenpay-widget");
       document.body.appendChild(script);
     </script>
   </body>

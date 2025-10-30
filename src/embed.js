@@ -6,19 +6,19 @@ import interFontBase64 from "@/assets/fonts/Inter_24pt-Regular.ttf?inline";
 import robotoFontBase64 from "@/assets/fonts/Roboto_SemiCondensed-Light.ttf?inline";
 
 (async function () {
-  if (document.getElementById("vue-widget-root")) return;
+  const containerId = script?.dataset?.container;
+  let container = document.getElementById(containerId);
 
-  const root = document.createElement("div");
-  root.id = "vue-widget-root";
-  document.body.appendChild(root);
+  if (!container) {
+    console.warn(`[Widget] Container with id "${containerId}" not found.`);
+    container = document.createElement("div");
+    container.id = "vue-widget-root";
+    document.body.appendChild(container);
+  }
 
-  const shadow = root.attachShadow({ mode: "open" });
-
-  /**
-   * @todo remove
-   */
-  const script = document.currentScript;
-  const title = script?.dataset?.title || "Виджет по умолчанию";
+  const shadow = container.attachShadow({ mode: "open" });
+  const mountPoint = document.createElement("div");
+  shadow.appendChild(mountPoint);
 
   /**
    * Fonts
@@ -36,10 +36,6 @@ import robotoFontBase64 from "@/assets/fonts/Roboto_SemiCondensed-Light.ttf?inli
     `;
   shadow.appendChild(style);
 
-  //
-  const mountPoint = document.createElement("div");
-  shadow.appendChild(mountPoint);
-
   /**
    * CSS
    */
@@ -51,7 +47,7 @@ import robotoFontBase64 from "@/assets/fonts/Roboto_SemiCondensed-Light.ttf?inli
     shadow.appendChild(style);
   }
 
-  const app = createApp(Widget, { title });
+  const app = createApp(Widget, {});
   app.use(ElementPlus);
   app.mount(mountPoint);
 })();
