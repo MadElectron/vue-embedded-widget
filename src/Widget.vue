@@ -6,7 +6,7 @@
           <Logo />
         </span>
         <span class="top"
-          >1 625 <span class="ruble">₽</span> &times;
+          >{{ paymentAmount }} <span class="ruble">₽</span> &times;
           {{ t("payment", 4) }}</span
         >
         <span class="bottom">на 2, 4 или 6 месяцев</span>
@@ -24,12 +24,19 @@
 import Logo from "./components/svg/Logo.vue";
 import Chevron from "./components/svg/Chevron.vue";
 import { useI18n } from "vue-i18n";
+import { computed } from "vue";
+import { currency } from "./utils";
 
 const { t } = useI18n();
 
-defineProps({
-  // title: { type: String, default: "Привет, мир!" },
+const props = defineProps({
+  price: { type: Number, default: 0 },
+  paymentCount: { type: Number, default: 4 },
 });
+
+const paymentAmount = computed(() =>
+  currency(props.price / props.paymentCount)
+);
 
 const onClick = () => alert("Виджет работает!");
 </script>

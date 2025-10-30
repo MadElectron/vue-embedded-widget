@@ -57,7 +57,15 @@ const i18n = createI18n({
     shadow.appendChild(style);
   }
 
-  const app = createApp(Widget, {});
+  /**
+   * Props
+   */
+  let price = script?.dataset?.price || 0;
+  if (+price !== price) {
+    price = price.replace(/\D/g, "");
+  }
+
+  const app = createApp(Widget, { price });
   app.use(i18n);
   app.use(ElementPlus);
   app.mount(mountPoint);
