@@ -1,3 +1,3 @@
-export const currency = (value) => {
-  return new Intl.NumberFormat("ru-RU").format(value);
+export const currency = (value, options = {}) => {
+  return new Intl.NumberFormat("ru-RU", options).format(value);
 };

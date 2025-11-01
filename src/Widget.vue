@@ -41,7 +41,7 @@ const props = defineProps({
 const dialogVisible = ref(true); // false
 
 const paymentAmount = computed(() =>
-  currency(props.price / props.paymentCount)
+  currency(props.price / props.paymentCount, { maximumFractionDigits: 0 })
 );
 
 const onClick = (e) => {
