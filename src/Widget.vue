@@ -28,15 +28,17 @@ import Logo from "./components/svg/Logo.vue";
 import Chevron from "./components/svg/Chevron.vue";
 import WidgetDialog from "./components/WidgetDialog.vue";
 import { useI18n } from "vue-i18n";
-import { ref, computed } from "vue";
+import { ref, computed, provide } from "vue";
 import { currency } from "./utils";
 
 const { t } = useI18n();
 
 const props = defineProps({
-  price: { type: String, default: "0" },
+  price: { type: Number, default: 0 },
   paymentCount: { type: Number, default: 4 },
 });
+
+provide("price", props.price);
 
 const dialogVisible = ref(true); // false
 

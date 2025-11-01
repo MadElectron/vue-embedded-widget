@@ -1,24 +1,34 @@
 <template>
   <div class="container">
     <el-radio-group v-model="selected">
-      <el-radio-button label="6 недель" :value="1" />
-      <el-radio-button label="4 месяца" :value="2" />
-      <el-radio-button label="6 месяцев" :value="3" />
+      <el-radio-button
+        v-for="p in profiles"
+        :key="p.name"
+        :label="p.name"
+        :value="p.name"
+      />
     </el-radio-group>
 
     <div class="content">
-      <div class="tabs">
+      <div class="tabs" :style="gridStyle">
         <span class="tab">
           <span class="pay-today">
             <span>Сегодня</span>
-            <span>6 625,00 ₽</span>
+            <span>{{ payToday }} ₽</span>
           </span>
         </span>
         <span class="tab">
-          <span class="pay-more">ещё 3 платежа раз в две недели</span>
+          <span class="pay-more"
+            >ещё {{ t("payment", activeProfile?.paymentCount - 1) }}
+            {{ t("time", activeProfile?.intervalCount) }} в
+            {{ t(intervalUnitName, activeProfile?.intervalCount) }}
+          </span>
         </span>
-        <span class="tab"></span>
-        <span class="tab"></span>
+        <span
+          v-for="n in activeProfile?.paymentCount - 2"
+          :key="n"
+          class="tab"
+        />
       </div>
 
       <p>Ничего не переплачиваете</p>
@@ -27,9 +37,35 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { computed, inject, ref } from "vue";
+import { profiles } from "@/utils/profiles";
+import { currency } from "@/utils";
+import { useI18n } from "vue-i18n";
 
-const selected = ref(1);
+const { t } = useI18n();
+const price = inject("price");
+
+const selected = ref(profiles[0].name);
+
+const activeProfile = computed(() =>
+  profiles.find((p) => p.name === selected.value)
+);
+const payToday = computed(() =>
+  currency(price / activeProfile.value?.paymentCount)
+);
+const intervalUnitName = computed(() => {
+  const intervals = {
+    1: "day",
+    2: "week",
+    3: "month",
+  };
+
+  return intervals[activeProfile.value?.intervalUnit];
+});
+const gridStyle = computed(
+  () =>
+    `grid-template-columns: repeat(${activeProfile.value?.paymentCount}, minmax(max-content, 1fr));`
+);
 </script>
 
 <style lang="scss" scoped>
@@ -40,6 +76,7 @@ const selected = ref(1);
 }
 
 .el-radio-group {
+  flex-wrap: nowrap;
   justify-content: stretch;
   padding: 8px;
   background-color: #f5f7f9;
@@ -86,7 +123,7 @@ const selected = ref(1);
   .tabs {
     position: relative;
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(4, minmax(max-content, 1fr));
     gap: 6.63px;
     align-items: end;
     width: 100%;
