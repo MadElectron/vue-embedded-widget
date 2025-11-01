@@ -1,0 +1,86 @@
+.el-dialog {
+  max-width: 400px !important;
+  border-radius: 40px !important;
+  border: 1px solid #ccc;
+  background: #fff !important;
+
+  &__header {
+    height: 24px;
+    padding-bottom: 20px;
+  }
+
+  &__headerbtn {
+    top: 20px;
+    right: 20px;
+    height: 24px;
+    width: 24px;
+  }
+
+  &__close {
+    transform: scale(1.33);
+
+    svg {
+      color: #b5b5b5;
+    }
+  }
+
+  &__footer {
+    padding-top: 20px;
+  }
+}
+
+.el-overlay-dialog {
+  background-color: color.scale(#252525, $alpha: -70%) !important;
+}
+
+// Animations
+
+@keyframes dialog-fade-in {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, -20px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translateZ(0);
+  }
+}
+@keyframes dialog-fade-out {
+  0% {
+    opacity: 1;
+    transform: translateZ(0);
+  }
+  to {
+    opacity: 0;
+    transform: translate3d(0, -20px, 0);
+  }
+}
+@keyframes modal-fade-in {
+  0% {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes modal-fade-out {
+  0% {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+.dialog-fade-enter-active {
+  animation: modal-fade-in 0.3s;
+}
+.dialog-fade-enter-active .el-overlay-dialog {
+  animation: dialog-fade-in 0.3s;
+}
+.dialog-fade-leave-active {
+  animation: modal-fade-out 0.3s;
+}
+.dialog-fade-leave-active .el-overlay-dialog {
+  animation: dialog-fade-out 0.3s;
+}

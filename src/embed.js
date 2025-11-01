@@ -6,6 +6,7 @@ import interFontBase64 from "@/assets/fonts/Inter_24pt-Regular.ttf?inline";
 import robotoFontBase64 from "@/assets/fonts/Roboto_SemiCondensed-Light.ttf?inline";
 import { createI18n } from "vue-i18n";
 import { messages, pluralRules } from "@/utils/i18n";
+import "@/assets/styles/dialog.scss";
 
 const i18n = createI18n({
   legacy: false,
@@ -15,7 +16,16 @@ const i18n = createI18n({
   pluralRules,
 });
 
+function appendStyle(container, content) {
+  const style = document.createElement("style");
+  style.textContent = content;
+  container.appendChild(style);
+}
+
 (async function () {
+  /**
+   * Shadow DOM init
+   */
   const containerId = script?.dataset?.container;
   let container = document.getElementById(containerId);
 
@@ -33,8 +43,7 @@ const i18n = createI18n({
   /**
    * Fonts
    */
-  const style = document.createElement("style");
-  style.textContent = `
+  const fonts = `
     @font-face {
       font-family: "Inter";
       src: url(${interFontBase64}) format("truetype");
@@ -44,17 +53,15 @@ const i18n = createI18n({
       src: url(${robotoFontBase64}) format("truetype");
     }
     `;
-  shadow.appendChild(style);
+  appendStyle(shadow, fonts);
 
   /**
-   * CSS
+   * Dynamic CSS
    */
   const styleRef = script?.dataset?.css || "/style.css";
   if (styleRef) {
     const cssText = await fetch(styleRef).then((r) => r.text());
-    const style = document.createElement("style");
-    style.textContent = cssText;
-    shadow.appendChild(style);
+    appendStyle(shadow, cssText);
   }
 
   /**
@@ -65,6 +72,9 @@ const i18n = createI18n({
     price = price.replace(/\D/g, "");
   }
 
+  /**
+   * Finalization
+   */
   const app = createApp(Widget, { price });
   app.use(i18n);
   app.use(ElementPlus);

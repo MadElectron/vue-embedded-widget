@@ -1,6 +1,6 @@
 <template>
   <div class="widget">
-    <el-button>
+    <el-button @click="onClick">
       <span class="content">
         <span class="logo">
           <Logo />
@@ -17,33 +17,41 @@
         </span>
       </span>
     </el-button>
+
+    <!-- Off-flow component -->
+    <WidgetDialog :visible="dialogVisible" @close="dialogVisible = false" />
   </div>
 </template>
 
 <script setup>
 import Logo from "./components/svg/Logo.vue";
 import Chevron from "./components/svg/Chevron.vue";
+import WidgetDialog from "./components/WidgetDialog.vue";
 import { useI18n } from "vue-i18n";
-import { computed } from "vue";
+import { ref, computed } from "vue";
 import { currency } from "./utils";
 
 const { t } = useI18n();
 
 const props = defineProps({
-  price: { type: Number, default: 0 },
+  price: { type: String, default: "0" },
   paymentCount: { type: Number, default: 4 },
 });
+
+const dialogVisible = ref(true); // false
 
 const paymentAmount = computed(() =>
   currency(props.price / props.paymentCount)
 );
 
-const onClick = () => alert("Виджет работает!");
+const onClick = (e) => {
+  e.preventDefault();
+  dialogVisible.value = true;
+  console.log(dialogVisible.value);
+};
 </script>
 
 <style lang="scss" scoped>
-@use "sass:color";
-
 .widget {
   font-weight: 400;
 }
