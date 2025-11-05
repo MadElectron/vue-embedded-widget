@@ -13,12 +13,16 @@
   </head>
   <body>
     <h1>This is a website</h1>
+    <p>Price is: <span id="price">47 175 ₽</span></p>
     <div id="sevenpay-widget"></div>
 
     <script>
       const script = document.createElement("script");
       script.src = "./vue-widget.iife.js?v=<?= time() ?>";
-      script.setAttribute("data-price", "47 175 ₽");
+
+      const price = document.getElementById("price").textContent;
+      script.setAttribute("data-price", price);
+      script.setAttribute("data-width", 300);
       script.setAttribute("data-css", "./vue-widget.css");
       script.setAttribute("data-container", "sevenpay-widget");
       document.body.appendChild(script);
