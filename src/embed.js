@@ -1,18 +1,13 @@
 import { createApp } from "vue";
 import { ElButton, ElDialog, ElSteps, ElRadio } from "element-plus";
-import "element-plus/theme-chalk/el-button.css";
-import "element-plus/theme-chalk/el-dialog.css";
-import "element-plus/theme-chalk/el-step.css";
-import "element-plus/theme-chalk/el-steps.css";
-import "element-plus/theme-chalk/el-radio-button.css";
-import "element-plus/theme-chalk/el-radio-group.css";
 import Widget from "@/Widget.vue";
 import interFontBase64 from "@/assets/fonts/Inter_24pt-Regular.woff2?inline";
 import robotoFontBase64 from "@/assets/fonts/Roboto_SemiCondensed-Light.woff2?inline";
 import { createI18n } from "vue-i18n";
 import { messages, pluralRules } from "@/utils/i18n";
-import "@/assets/styles/dialog.scss";
+import staticCss from "./assets/styles/embed.scss?inline";
 
+// i18n init
 const i18n = createI18n({
   legacy: false,
   locale: "ru",
@@ -21,13 +16,16 @@ const i18n = createI18n({
   pluralRules,
 });
 
-function appendStyle(container, content) {
+// вспомогательная функция для добавления <style>
+function appendStyle(container, cssText) {
   const style = document.createElement("style");
-  style.textContent = content;
+  style.textContent = cssText;
   container.appendChild(style);
 }
 
 (async function () {
+  const script = document.currentScript;
+
   /**
    * Shadow DOM init
    */
@@ -46,49 +44,53 @@ function appendStyle(container, content) {
   shadow.appendChild(mountPoint);
 
   /**
-   * Fonts
+   * Fonts (встраиваем через base64)
    */
   const fonts = `
     @font-face {
       font-family: "Inter";
-      src: url(${interFontBase64}) format("truetype");
+      src: url(${interFontBase64}) format("woff2");
+      font-weight: 400;
+      font-display: swap;
     }
     @font-face {
       font-family: "Roboto";
-      src: url(${robotoFontBase64}) format("truetype");
+      src: url(${robotoFontBase64}) format("woff2");
+      font-weight: 300;
+      font-display: swap;
     }
-    `;
+  `;
   appendStyle(shadow, fonts);
 
   /**
-   * Dynamic CSS
+   * Static CSS
    */
-  const styleRef = script?.dataset?.css || "/style.css";
-  if (styleRef) {
-    const cssText = await fetch(styleRef).then((r) => r.text());
-    appendStyle(shadow, cssText);
+  appendStyle(shadow, staticCss);
+
+  /**
+   * Widget CSS (встраивается плагином в vite.config.js)
+   */
+  if (typeof __WIDGET_CSS__ !== "undefined") {
+    appendStyle(shadow, __WIDGET_CSS__);
+  } else {
+    console.warn("[Widget] Inline CSS not found – check vite plugin.");
   }
 
   /**
    * Props
    */
-  // Price is cast to component as number
   let price = script?.dataset?.price || 0;
   if (+price !== price) {
-    price = price.replace(/\D/g, "");
+    price = parseFloat(price.replace(/\D/g, "")) || 0;
   }
 
-  const props = {
-    price,
-  };
+  const props = { price };
 
   const width = script?.dataset?.width;
-  if (width) {
-    props.width = width;
-  }
+  if (width) props.width = width;
 
   /**
-   * Finalization
+   * Mount widget
    */
   const app = createApp(Widget, props);
   app.use(i18n);

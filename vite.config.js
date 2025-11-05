@@ -1,15 +1,11 @@
 import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
 import path from "path";
+import inlineCssPlugin from "./build/vite-plugin-inline-css.js";
 
 export default defineConfig({
-  plugins: [vue()],
+  plugins: [vue(), inlineCssPlugin()],
   css: {
-    preprocessorOptions: {
-      scss: {
-        additionalData: `@use "sass:color";`,
-      },
-    },
     postcss: {
       plugins: [
         require("cssnano")({
@@ -18,12 +14,16 @@ export default defineConfig({
       ],
     },
   },
+
   define: {
+    // Исправляем ошибку process is not defined
     "process.env": { NODE_ENV: JSON.stringify("production") },
+    "process.browser": true,
   },
+
   build: {
-    minify: "terser",
     cssCodeSplit: false,
+    minify: "terser",
     assetsInlineLimit: 1000000,
     lib: {
       entry: "src/embed.js",
@@ -33,7 +33,7 @@ export default defineConfig({
     },
     rollupOptions: {
       output: {
-        inlineDynamicImports: true,
+        inlineDynamicImports: true, // один чанк
       },
     },
     terserOptions: {
@@ -47,6 +47,7 @@ export default defineConfig({
       },
     },
   },
+
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "src"),

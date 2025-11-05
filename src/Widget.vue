@@ -58,6 +58,8 @@ const onClick = (e) => {
 </script>
 
 <style lang="scss" scoped>
+@use "sass:color";
+
 .widget {
   width: 100%;
   min-width: fit-content;
