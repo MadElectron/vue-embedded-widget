@@ -67,15 +67,25 @@ function appendStyle(container, content) {
   /**
    * Props
    */
+  // Price is cast to component as number
   let price = script?.dataset?.price || 0;
   if (+price !== price) {
     price = price.replace(/\D/g, "");
   }
 
+  const props = {
+    price,
+  };
+
+  const width = script?.dataset?.width;
+  if (width) {
+    props.width = width;
+  }
+
   /**
    * Finalization
    */
-  const app = createApp(Widget, { price });
+  const app = createApp(Widget, props);
   app.use(i18n);
   app.use(ElementPlus);
   app.mount(mountPoint);

@@ -1,5 +1,5 @@
 <template>
-  <div class="widget">
+  <div class="widget" :style="widthStyle">
     <el-button @click="onClick">
       <span class="content">
         <span class="logo">
@@ -36,12 +36,16 @@ const { t } = useI18n();
 const props = defineProps({
   price: { type: Number, default: 0 },
   paymentCount: { type: Number, default: 4 },
+  width: { type: Number, default: null },
 });
 
 provide("price", props.price);
 
-const dialogVisible = ref(true); // false
+const dialogVisible = ref(false);
 
+const widthStyle = computed(() =>
+  props.width ? `width: ${props.width}px` : ""
+);
 const paymentAmount = computed(() =>
   currency(props.price / props.paymentCount, { maximumFractionDigits: 0 })
 );
@@ -55,13 +59,15 @@ const onClick = (e) => {
 
 <style lang="scss" scoped>
 .widget {
+  width: 100%;
+  min-width: fit-content;
   font-weight: 400;
 }
 
 .el-button {
   justify-content: stretch;
-  height: auto;
   width: 100%;
+  height: auto;
   padding: 15px 12px;
   border-radius: 20px;
   border: none;
