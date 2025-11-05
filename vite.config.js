@@ -14,13 +14,6 @@ export default defineConfig({
       ],
     },
   },
-
-  define: {
-    // Исправляем ошибку process is not defined
-    "process.env": { NODE_ENV: JSON.stringify("production") },
-    "process.browser": true,
-  },
-
   build: {
     cssCodeSplit: false,
     minify: "terser",
@@ -33,7 +26,7 @@ export default defineConfig({
     },
     rollupOptions: {
       output: {
-        inlineDynamicImports: true, // один чанк
+        inlineDynamicImports: true,
       },
     },
     terserOptions: {
@@ -47,7 +40,6 @@ export default defineConfig({
       },
     },
   },
-
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "src"),
