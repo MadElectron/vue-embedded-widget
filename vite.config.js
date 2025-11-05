@@ -5,6 +5,10 @@ import inlineCssPlugin from "./build/vite-plugin-inline-css.js";
 
 export default defineConfig({
   plugins: [vue(), inlineCssPlugin()],
+  define: {
+    "process.env": { NODE_ENV: JSON.stringify("production") },
+    "process.browser": true,
+  },
   css: {
     postcss: {
       plugins: [

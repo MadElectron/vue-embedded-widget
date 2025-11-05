@@ -10,7 +10,7 @@
 <script>
   const script = document.createElement("script");
   script.src =
-    "https://cdn.jsdelivr.net/gh/MadElectron/vue-embedded-widget@1.4.0/dist/vue-widget.iife.js?v=<?= time() ?>";
+    "https://cdn.jsdelivr.net/gh/MadElectron/vue-embedded-widget@1.4.1/dist/vue-widget.iife.js?v=<?= time() ?>";
 
   const price = document.getElementById("price").textContent;
   script.setAttribute("data-price", price);

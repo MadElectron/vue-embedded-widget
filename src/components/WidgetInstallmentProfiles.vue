@@ -20,7 +20,7 @@
         <span class="tab">
           <span class="pay-more"
             >ещё {{ t("payment", activeProfile?.paymentCount - 1) }}
-            {{ t("time", activeProfile?.intervalCount) }} в
+            {{ t("time", activeProfile?.paymentCountPerUnit) }} в
             {{ t(intervalUnitName, activeProfile?.intervalCount) }}
           </span>
         </span>
@@ -56,8 +56,8 @@ const payToday = computed(() =>
 const intervalUnitName = computed(() => {
   const intervals = {
     1: "day",
-    2: "week",
-    3: "month",
+    2: "weekLt10",
+    3: "monthLt10",
   };
 
   return intervals[activeProfile.value?.intervalUnit];
@@ -86,6 +86,7 @@ const gridStyle = computed(
 :deep(.el-radio-button) {
   flex: 1;
   padding: 12px 20px;
+  text-align: center;
   opacity: 0.4;
 }
 
