@@ -1,6 +1,11 @@
 import { createApp } from "vue";
-import ElementPlus from "element-plus";
-import "element-plus/dist/index.css";
+import { ElButton, ElDialog, ElSteps, ElRadio } from "element-plus";
+import "element-plus/theme-chalk/el-button.css";
+import "element-plus/theme-chalk/el-dialog.css";
+import "element-plus/theme-chalk/el-step.css";
+import "element-plus/theme-chalk/el-steps.css";
+import "element-plus/theme-chalk/el-radio-button.css";
+import "element-plus/theme-chalk/el-radio-group.css";
 import Widget from "@/Widget.vue";
 import interFontBase64 from "@/assets/fonts/Inter_24pt-Regular.ttf?inline";
 import robotoFontBase64 from "@/assets/fonts/Roboto_SemiCondensed-Light.ttf?inline";
@@ -87,6 +92,9 @@ function appendStyle(container, content) {
    */
   const app = createApp(Widget, props);
   app.use(i18n);
-  app.use(ElementPlus);
+  app.use(ElButton);
+  app.use(ElDialog);
+  app.use(ElSteps);
+  app.use(ElRadio);
   app.mount(mountPoint);
 })();
