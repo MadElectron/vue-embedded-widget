@@ -1,7 +1,7 @@
 export const profiles = [
   {
     name: "6 недель",
-    paymentCount: 6,
+    paymentCount: 4,
     paymentCountPerUnit: 1,
     intervalUnit: 2,
     intervalCount: 2,
