@@ -85,7 +85,7 @@ const gridStyle = computed(
 
 :deep(.el-radio-button) {
   flex: 1;
-  padding: 12px 20px;
+  padding: 12px 6px;
   text-align: center;
   opacity: 0.4;
 }

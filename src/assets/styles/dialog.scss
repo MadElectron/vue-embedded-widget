@@ -7,6 +7,8 @@
   background: #fff !important;
 
   &__header {
+    display: flex !important;
+    align-items: end !important;
     height: 24px;
     padding-bottom: 20px;
   }
@@ -28,6 +30,10 @@
 
   &__footer {
     padding-top: 20px;
+  }
+
+  @media (max-width: 767px) {
+    width: calc(100% - 30px) !important;
   }
 }
 
