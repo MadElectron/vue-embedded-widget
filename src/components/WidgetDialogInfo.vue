@@ -50,7 +50,7 @@
   }
 
   :deep(.el-step__icon-inner) {
-    font-family: "Roboto", sans-serif;
+    font-family: "Inter", sans-serif;
     font-weight: 500;
     font-size: 20px;
     line-height: 28px;

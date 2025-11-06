@@ -14,7 +14,7 @@
         <span class="tab">
           <span class="pay-today">
             <span>Сегодня</span>
-            <span>{{ payToday }} ₽</span>
+            <span>{{ payToday }}</span>
           </span>
         </span>
         <span class="tab">
@@ -92,7 +92,7 @@ const gridStyle = computed(
 
 :deep(.el-radio-button__inner) {
   padding: 0;
-  font-family: "Roboto", sans-serif;
+  font-family: "Inter", sans-serif;
   font-size: 16px;
   color: #000;
 }
@@ -110,7 +110,7 @@ const gridStyle = computed(
   padding: 16px 12px;
   border-radius: 26.52px;
   background: #f5f7f9;
-  font-family: "Roboto", sans-serif;
+  font-family: "Inter", sans-serif;
 
   p {
     margin: 0;
@@ -133,10 +133,11 @@ const gridStyle = computed(
 
     .tab {
       .pay-today {
+        font-family: "Inter", "Roboto", sans-serif;
         display: grid;
         grid-template-columns: 1fr;
         gap: 4.42px;
-        font-weight: 500;
+        font-weight: 600;
         font-size: 16px;
         line-height: 19px;
         letter-spacing: 0px;

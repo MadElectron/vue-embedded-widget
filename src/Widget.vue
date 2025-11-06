@@ -6,8 +6,7 @@
           <Logo />
         </span>
         <span class="top"
-          >{{ paymentAmount }} <span class="ruble">₽</span> &times;
-          {{ t("payment", 4) }}</span
+          >{{ paymentAmount }} &times; {{ t("payment", 4) }}</span
         >
         <span class="bottom">на 2, 4 или 6 месяцев</span>
         <span class="right">
@@ -88,8 +87,8 @@ const onClick = (e) => {
       "logo bottom right";
     gap: 0 8px;
     width: 100%;
-    font-family: "Inter", sans-serif !important;
-    font-weight: 500;
+    font-family: "Inter", "Roboto", sans-serif !important;
+    font-weight: 400;
     font-size: 14px;
     line-height: 17px;
     text-align: left;
@@ -98,11 +97,6 @@ const onClick = (e) => {
       grid-area: logo;
       display: flex;
       align-items: center;
-    }
-
-    .ruble {
-      font-family: Roboto, sans-serif !important;
-      font-weight: 400;
     }
 
     .top {
