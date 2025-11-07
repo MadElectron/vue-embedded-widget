@@ -4,6 +4,8 @@
   "description": "7pay embedded widget",
   "scripts": {
     "dev": "vite",
+    "demo": "http-server demo",
+    "demo:https": "http-server demo -S -a local.7pay.ru -p 443 --cert=cert/local.7pay.ru.pem --key=cert/local.7pay.ru-key.pem",
     "build": "vite build",
     "build:embed": "vite build --mode embed",
     "preview": "vite preview"
